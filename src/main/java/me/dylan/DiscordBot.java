@@ -28,13 +28,14 @@ public class DiscordBot {
         );
 
         JDA bot = JDABuilder.create(token, intents)
-                .setActivity(Activity.listening("Juicewxrld"))
+                .setActivity(Activity.playing("Type: !commands"))
                 .addEventListeners(new Handler())
                 .build();
 
 
         System.out.println("Logged in as " + bot.getSelfUser().getName() + "#" + bot.getSelfUser().getDiscriminator() + "!");
 
+        //TODO: dit werkend krijgen? er worden geen guilds op het scherm geprint.
         System.out.println("Guilds: ");
         bot.getGuilds().forEach(guild -> {
             System.out.println(guild.getName());

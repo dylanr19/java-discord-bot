@@ -18,7 +18,6 @@ public class Handler extends ListenerAdapter {
 
          if(msg.equals("!join")){ // controleert of de message van de user "!join" is
              //join de channel
-             System.out.println("join");
              if(!event.getGuild().getSelfMember().hasPermission(channel, Permission.VOICE_CONNECT)){ //controleert of de bot de permissie VOICE_CONNECT heeft
                 channel.sendMessage("I don't have permission to join that channel!").queue();
                 return;
@@ -42,7 +41,6 @@ public class Handler extends ListenerAdapter {
          }
          else if(msg.equals("!leave")){ // controleert of de message van de user "!leave" is
              //leave de channel
-             System.out.println("leave");
              AudioChannel connectedChannel = event.getMember().getVoiceState().getChannel(); //Zet de voice channel waarin de user zich bevindt in een variabele
              if(connectedChannel == null){ //Controleert of de user in een voice channel zit
                  channel.sendMessage("You are not in a voice channel!").queue();
@@ -53,5 +51,11 @@ public class Handler extends ListenerAdapter {
              event.getGuild().getAudioManager().closeAudioConnection(); //Laat de bot de verbinding met de voice channel verbreken
              channel.sendMessage("Disconnected from the voice channel!").queue();
          }
+
+         if(msg.equals("!commands")){ // controleert of de message van de user "!commands" is
+             //laat de commands zien
+             channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands").queue();
+         }
+
      }
 }
