@@ -36,7 +36,7 @@ public class PlayerManager {
         });
     }
     //TODO: trackLoaded roept nooit op... Er worden alleen playlists gedetecteerd. Deze playlists zijn uiteindelijk maar 1 song, telkens als een song wordt toegevoegd is de playlist dus +1 song.
-    //De bot geeft aan dat er een playlist van tientallen songs is gedecteerd terwijl er maar 1 song is toegevoegd aan de playlist.
+    //De bot geeft aan dat er een playlist van tientallen songs is gedecteerd terwijl er maar 1 song is toegevoegd aan de playlist. kortom single song worden als playlists gedecteerd.
         public void LoadAndPlay(TextChannel textChannel, String trackURL){
             final GuildMusicManager musicManager = this.getMusicManager(textChannel.getGuild());
 
@@ -52,7 +52,8 @@ public class PlayerManager {
                     final List<AudioTrack> tracks = audioPlaylist.getTracks();
                     if(!tracks.isEmpty()){
                         musicManager.scheduler.queue(tracks.get(0));
-                        textChannel.sendMessage("Added to queue: " + tracks.size() + " tracks").queue();
+                        //textChannel.sendMessage("Added to queue: " + tracks.size() + " tracks").queue();
+                        textChannel.sendMessage("Added to queue: " + tracks.get(0).getInfo().title).queue();
                     }
                 }
 
