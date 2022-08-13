@@ -1,13 +1,16 @@
 package me.dylan;
 
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import javax.security.auth.login.LoginException;
 import java.util.EnumSet;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 public class DiscordBot {
     public static void main(String[] args) throws LoginException, InterruptedException {
@@ -27,9 +30,11 @@ public class DiscordBot {
                 GatewayIntent.MESSAGE_CONTENT
         );
 
+
         JDA bot = JDABuilder.create(token, intents)
+                .enableCache(CacheFlag.VOICE_STATE)
                 .setActivity(Activity.playing("Type: !commands"))
-                .addEventListeners(new Handler())
+                .addEventListeners(new JoinHandler())
                 .build();
 
 

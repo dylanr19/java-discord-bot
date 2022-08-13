@@ -6,7 +6,10 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
 
-public class Handler extends ListenerAdapter {
+import java.net.URI;
+import java.net.URISyntaxException;
+
+public class JoinHandler extends ListenerAdapter {
      @Override
      public void onMessageReceived(MessageReceivedEvent event){
          //Controleert of de MessageEvent niet van een bot komt
@@ -52,10 +55,37 @@ public class Handler extends ListenerAdapter {
              channel.sendMessage("Disconnected from the voice channel!").queue();
          }
 
+         if(msg.contains("!play")) {
+             System.out.println("Playing song");
+             final AudioManager audioManager = event.getGuild().getAudioManager();
+             final AudioChannel memberChannel = event.getMember().getVoiceState().getChannel();
+
+             audioManager.openAudioConnection(memberChannel);
+
+
+             String link = String.join(" ", event.getMessage().toString().split(" ")).replace("!play ", "");
+
+             if (!isURL(link)) {
+                 link = "ytsearch:" + link + " audio";
+             }
+
+             PlayerManager.getINSTANCE().LoadAndPlay(channel, link);
+         }
+
+
          if(msg.equals("!commands")){ // controleert of de message van de user "!commands" is
              //laat de commands zien
              channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands").queue();
          }
 
      }
+
+        public boolean isURL(String url){
+            try{
+                new URI(url);
+                return true;
+            }catch (URISyntaxException e){
+                return false;
+            }
+        }
 }
