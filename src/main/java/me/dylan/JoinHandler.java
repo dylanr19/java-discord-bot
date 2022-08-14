@@ -19,6 +19,7 @@ public class JoinHandler extends ListenerAdapter {
          String msg = event.getMessage().getContentRaw().toLowerCase(); //Zet de message String in een variabele
          TextChannel channel = event.getChannel().asTextChannel(); //Zet de text channel waarin de message event voorkomt in een variabele
 
+
          if(msg.equals("!join")){ // controleert of de message van de user "!join" is
              //join de channel
              if(!event.getGuild().getSelfMember().hasPermission(channel, Permission.VOICE_CONNECT)){ //controleert of de bot de permissie VOICE_CONNECT heeft
@@ -72,9 +73,20 @@ public class JoinHandler extends ListenerAdapter {
          }
 
 
+        if(msg.equals("!roulette")){
+            System.out.println(event.getGuild().getMembers());;
+            event.getGuild().getMembers().get(4).kick("сука блять").queue();
+
+            System.out.println(event.getGuild().getMembers().get(4).getUser().getName());
+            //System.out.println(event.getGuild().loadMembers().get());
+
+        }
+
+
+
          if(msg.equals("!commands")){ // controleert of de message van de user "!commands" is
              //laat de commands zien
-             channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands").queue();
+             channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands\n!play *nameOfSong* - plays youtube songs\n!roulette - Kicks random user from Guild based on Russian Roulette").queue();
          }
 
      }

@@ -10,6 +10,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import javax.security.auth.login.LoginException;
 import java.util.EnumSet;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 public class DiscordBot {
@@ -27,12 +28,16 @@ public class DiscordBot {
                 // We need voice states to connect to the voice channel
                 GatewayIntent.GUILD_VOICE_STATES,
                 // Enable access to message.getContentRaw()
-                GatewayIntent.MESSAGE_CONTENT
+                GatewayIntent.MESSAGE_CONTENT,
+                //
+                GatewayIntent.GUILD_MEMBERS
         );
 
 
         JDA bot = JDABuilder.create(token, intents)
                 .enableCache(CacheFlag.VOICE_STATE)
+                .setMemberCachePolicy(MemberCachePolicy.ALL)
+                .enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .setActivity(Activity.playing("Type: !commands"))
                 .addEventListeners(new JoinHandler())
                 .build();
