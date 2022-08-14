@@ -83,42 +83,39 @@ public class JoinHandler extends ListenerAdapter {
             }
             else{
                 System.out.println(member.getVoiceState().getChannel().getName());
-                String channelName = member.getVoiceState().getChannel().getName();
-
                 AudioChannel voiceChannel = member.getVoiceState().getChannel();
-                System.out.println(voiceChannel.getMembers().get(0).getUser().getName());
+
                 int size = voiceChannel.getMembers().size();
                 channel.sendMessage("Russian roulette is starting for: ").queue();
+
                 for(int i = 0; i < size; i++){
                     channel.sendMessage("- " + voiceChannel.getMembers().get(i).getUser().getName()).queue();
                 }
-                channel.sendMessage("Sit tight comrades!").queue();
 
-                voiceChannel.getMembers().get(1).ban(1, "сука блять ( better luck next time )").queue();
+                channel.sendMessage("Sit tight comrades!").queue();
 
                 Random r = new Random();
                 int randomNum = r.nextInt(size);
 
-
                 Member randomMemb = voiceChannel.getMembers().get(randomNum);
                 System.out.println(randomMemb.getUser().getName());
-                randomMemb.ban(1, "сука блять ( better luck next time )").queue();
-                channel.sendMessage("The doomer is: " + randomMemb.getUser().getName()).queue();
+                channel.sendMessage("The doomer is... ").queue();
+
+                for(int i = 0; i < 5; i++){
+                    channel.sendMessage(".").queue();
+                }
+
+                channel.sendMessage(randomMemb.getUser().getName() + " !").queue();
                 channel.sendMessage("сука блять ( better luck next time! ) ").queue();
-
-
-
                 channel.sendMessage("Russian roulette is over!").queue();
+                randomMemb.kick("сука блять ( better luck next time )").queue();
+                }
+
             }
 
 
 
 
-
-
-
-
-        }
 
 
 
