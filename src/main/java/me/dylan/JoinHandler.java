@@ -63,7 +63,6 @@ public class JoinHandler extends ListenerAdapter {
              audioManager.openAudioConnection(memberChannel);
 
 
-             String link2 = String.join(" ", event.getMessage().toString().split(" ")).replace("!play ", "");
              String link = String.join(" ", event.getMessage().getContentRaw().toLowerCase().split(" ")).replace("!play ", "");
              if (!isURL(link)) {
                  link = "ytsearch:" + link + " audio";
