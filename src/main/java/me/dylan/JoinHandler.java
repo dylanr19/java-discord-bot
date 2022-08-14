@@ -121,7 +121,11 @@ public class JoinHandler extends ListenerAdapter {
 
          if(msg.equals("!commands")){ // controleert of de message van de user "!commands" is
              //laat de commands zien
-             channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands\n!play *nameOfSong* - plays youtube songs\n!roulette - Kicks random user from Guild based on Russian Roulette").queue();
+             channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands\n!play *nameOfSong* - plays youtube songs\n!roulette - Kicks random user from Guild based on Russian Roulette\n!description *command* - shows the description of a given command").queue();
+         }
+
+         if(msg.equals("!description roulette")){
+             channel.sendMessage("Russian roulette is a game where you have to guess who will be the doomer.\nThe doomer is randomly chosen from the voice channel and you have to guess who will be the doomer.\nIf you guess correctly, you will be kicked from the voice channel.\nIf you guess wrong, you will be kicked from the voice channel and you will be the doomer.").queue();
          }
 
      }
