@@ -128,7 +128,7 @@ public class JoinHandler extends ListenerAdapter {
 
             }
 
-         if(msg.equals("!roulette2")){
+         if(msg.equals("!testroulette")){
              Member member = event.getMember();
              AudioChannel voiceChannel = member.getVoiceState().getChannel();
              Guild guild = event.getGuild();
@@ -155,7 +155,7 @@ public class JoinHandler extends ListenerAdapter {
                  while(!msgReceived){
                      //System.out.println("Waiting for message...");
                      for(int i = 0; i < size; i++){
-
+        //TODO: while loop veroorzaakt een memory overloading.
                          channel.getHistory().retrievePast(1).queue(messages -> {
                              // messages (list) contains all received messages
                              // Access them in here
@@ -170,7 +170,7 @@ public class JoinHandler extends ListenerAdapter {
                              chosenMember = voiceChannel.getMembers().get(i).getUser().getName();
                              msgReceived = true;
                          }
-                         else if(!msg.equals("!roulette2")){
+                         else if(!msg.equals("!testroulette")){
                              channel.sendMessage("This user is not in the same voice chat as yours!").queue();
                              return;
                          }
@@ -199,7 +199,7 @@ public class JoinHandler extends ListenerAdapter {
                          }
 
 
-
+//TODO: OpenJDK 64-Bit Server VM warning: Exception java.lang.OutOfMemoryError occurred dispatching signal UNKNOWN to handler- the VM may need to be forcibly terminated, bij 2e keer roulette2 runnen
 
                          if(chosenMember.equals(randomMemb.getNickname())){
                              System.out.println("Kicking member...");
