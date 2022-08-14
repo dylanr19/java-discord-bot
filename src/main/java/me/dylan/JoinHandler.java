@@ -103,12 +103,29 @@ public class JoinHandler extends ListenerAdapter {
 
                 for(int i = 0; i < 5; i++){
                     channel.sendMessage(".").queue();
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
                 }
 
-                channel.sendMessage(randomMemb.getUser().getName() + " !").queue();
+                //channel.sendMessage("@" + randomMemb.getUser().getName() + " !").queue();
+                channel.sendMessage("<@" + randomMemb.getId() + "> !").queue();
+
                 channel.sendMessage("сука блять ( better luck next time! ) ").queue();
                 channel.sendMessage("Russian roulette is over!").queue();
-                randomMemb.kick("сука блять ( better luck next time )").queue();
+
+
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("Kicking member...");
+                //randomMemb.kick("сука блять ( better luck next time )").queue();
                 }
 
             }
@@ -125,7 +142,7 @@ public class JoinHandler extends ListenerAdapter {
          }
 
          if(msg.equals("!description roulette")){
-             channel.sendMessage("Russian roulette is a game where you have to guess who will be the doomer.\nThe doomer is randomly chosen from the voice channel and you have to guess who will be the doomer.\nIf you guess correctly, you will be kicked from the voice channel.\nIf you guess wrong, you will be kicked from the voice channel and you will be the doomer.").queue();
+             channel.sendMessage("Russian roulette is a game where you have to guess who will be the doomer.\nThe doomer is randomly chosen from the voice channel and you have to guess who will be the doomer.\nIf you guess correctly, He/She will be kicked from the server.\nIf you guess wrong, you will be banned from the server and you will be the doomer.").queue();
          }
 
      }
