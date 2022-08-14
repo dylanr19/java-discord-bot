@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
+import java.util.Random;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -74,11 +75,48 @@ public class JoinHandler extends ListenerAdapter {
 
 
         if(msg.equals("!roulette")){
-            System.out.println(event.getGuild().getMembers());;
-            event.getGuild().getMembers().get(4).kick("сука блять").queue();
+            Guild guild = event.getGuild();
+            Member member = event.getMember();
+            if(member.getVoiceState().getChannel() == null){
+                channel.sendMessage("You have to be in a voice channel!").queue();
+                return;
+            }
+            else{
+                System.out.println(member.getVoiceState().getChannel().getName());
+                String channelName = member.getVoiceState().getChannel().getName();
 
-            System.out.println(event.getGuild().getMembers().get(4).getUser().getName());
-            //System.out.println(event.getGuild().loadMembers().get());
+                AudioChannel voiceChannel = member.getVoiceState().getChannel();
+                System.out.println(voiceChannel.getMembers().get(0).getUser().getName());
+                int size = voiceChannel.getMembers().size();
+                channel.sendMessage("Russian roulette is starting for: ").queue();
+                for(int i = 0; i < size; i++){
+                    channel.sendMessage("- " + voiceChannel.getMembers().get(i).getUser().getName()).queue();
+                }
+                channel.sendMessage("Sit tight comrades!").queue();
+
+                voiceChannel.getMembers().get(1).ban(1, "сука блять ( better luck next time )").queue();
+
+                Random r = new Random();
+                int randomNum = r.nextInt(size);
+
+
+                Member randomMemb = voiceChannel.getMembers().get(randomNum);
+                System.out.println(randomMemb.getUser().getName());
+                randomMemb.ban(1, "сука блять ( better luck next time )").queue();
+                channel.sendMessage("The doomer is: " + randomMemb.getUser().getName()).queue();
+                channel.sendMessage("сука блять ( better luck next time! ) ").queue();
+
+
+
+                channel.sendMessage("Russian roulette is over!").queue();
+            }
+
+
+
+
+
+
+
 
         }
 
@@ -99,4 +137,5 @@ public class JoinHandler extends ListenerAdapter {
                 return false;
             }
         }
+
 }
