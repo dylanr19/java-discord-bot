@@ -128,6 +128,110 @@ public class JoinHandler extends ListenerAdapter {
 
             }
 
+         if(msg.equals("!roulette2")){
+             Member member = event.getMember();
+             AudioChannel voiceChannel = member.getVoiceState().getChannel();
+             Guild guild = event.getGuild();
+             int size = voiceChannel.getMembers().size();
+
+             if(member.getVoiceState().getChannel() == null){
+                 channel.sendMessage("You have to be in a voice channel!").queue();
+                 return;
+             }
+             else{
+                 channel.sendMessage("<@" + member.getId() + "> choose a user!").queue();
+                 for(int i = 0; i < size; i++){
+                     channel.sendMessage("- " + voiceChannel.getMembers().get(i).getUser().getName()).queue();
+                 }
+
+//                 try {
+//                     Thread.sleep(10000);
+//                 } catch (InterruptedException e) {
+//                     throw new RuntimeException(e);
+//                 }
+                 String chosenMember= "";
+                 boolean msgReceived = false;
+                 final String[] LatestMsg = {""};
+                 while(!msgReceived){
+                     //System.out.println("Waiting for message...");
+                     for(int i = 0; i < size; i++){
+
+                         channel.getHistory().retrievePast(1).queue(messages -> {
+                             // messages (list) contains all received messages
+                             // Access them in here
+                             // Use for example messages.get(0) to get the received message
+                             // (messages is of type List)
+                             int historySize = messages.size();
+                             LatestMsg[0] = messages.get(historySize - 1).getContentRaw();
+
+                         });
+                         //System.out.println(LatestMsg[0]);
+                         if(LatestMsg[0].equals("!" + voiceChannel.getMembers().get(i).getUser().getName()) && event.getMember().getUser().getName().equals(member.getUser().getName())){
+                             chosenMember = voiceChannel.getMembers().get(i).getUser().getName();
+                             msgReceived = true;
+                         }
+                         else if(!msg.equals("!roulette2")){
+                             channel.sendMessage("This user is not in the same voice chat as yours!").queue();
+                             return;
+                         }
+                     }
+                 }
+
+                         channel.sendMessage("Russian roulette is starting!").queue();
+                         channel.sendMessage("Sit tight comrades!").queue();
+
+                         Random r = new Random();
+                         int randomNum = r.nextInt(size);
+
+                         Member randomMemb = voiceChannel.getMembers().get(randomNum);
+                         System.out.println(randomMemb.getUser().getName());
+                         channel.sendMessage("The doomer is... ").queue();
+
+                         for(int y = 0; y < 5; y++){
+                             channel.sendMessage(".").queue();
+
+                             try {
+                                 Thread.sleep(1000);
+                             } catch (InterruptedException e) {
+                                 throw new RuntimeException(e);
+                             }
+
+                         }
+
+
+
+
+                         if(chosenMember.equals(randomMemb.getNickname())){
+                             System.out.println("Kicking member...");
+                             channel.sendMessage("<@" + randomMemb.getId() + "> !").queue();
+                             channel.sendMessage("сука блять ( better luck next time! ) ").queue();
+                             channel.sendMessage("Russian roulette is over!").queue();
+                             try {
+                                 Thread.sleep(10000);
+                             } catch (InterruptedException e) {
+                                 throw new RuntimeException(e);
+                             }
+                             randomMemb.kick("сука блять ( better luck next time )").queue();
+                         }
+                         else{
+                             System.out.println("Kicking member...");
+                             channel.sendMessage("<@" + member.getId() + "> !").queue();
+                             channel.sendMessage("сука блять ( you are d o o m e d !) ").queue();
+                             channel.sendMessage("Russian roulette is over!").queue();
+                             try {
+                                 Thread.sleep(10000);
+                             } catch (InterruptedException e) {
+                                 throw new RuntimeException(e);
+                             }
+                             member.kick("сука блять ( D O O M E D )").queue();
+                         }
+
+
+
+             }
+
+         }
+
 
 
 
