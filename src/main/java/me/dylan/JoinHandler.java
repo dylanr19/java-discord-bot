@@ -112,9 +112,7 @@ public class JoinHandler extends ListenerAdapter {
 
                 }
 
-                //channel.sendMessage("@" + randomMemb.getUser().getName() + " !").queue();
                 channel.sendMessage("<@" + randomMemb.getId() + "> !").queue();
-
                 channel.sendMessage("сука блять ( better luck next time! ) ").queue();
                 channel.sendMessage("Russian roulette is over!").queue();
 
@@ -125,7 +123,7 @@ public class JoinHandler extends ListenerAdapter {
                     throw new RuntimeException(e);
                 }
                 System.out.println("Kicking member...");
-                //randomMemb.kick("сука блять ( better luck next time )").queue();
+                randomMemb.kick("сука блять ( better luck next time )").queue();
                 }
 
             }
