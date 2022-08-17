@@ -211,7 +211,7 @@ public class JoinHandler extends ListenerAdapter {
                  if(!randomMemb.getUser().getName().equals("spite")){
                      randomMemb.kick("сука блять ( better luck next time )").queue();
                  }
-                 else{channel.sendMessage("You can't kick the owner of the server!").queue();}
+                 else{channel.sendMessage("(You can't kick the owner of this server)").queue();}
              }
              else{
                  System.out.println("Kicking member...");
