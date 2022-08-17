@@ -149,7 +149,7 @@ public class JoinHandler extends ListenerAdapter {
              }
 
              else{
-                 channel.sendMessage("<@" + member.getId() + "> choose a user!").queue();
+                 channel.sendMessage("<@" + member.getId() + "> choose a user! (type: !pick *user*)").queue();
                  for(int i = 0; i < size; i++){
                      channel.sendMessage("- " + voiceChannel.getMembers().get(i).getUser().getName()).queue();
                  }
@@ -158,7 +158,7 @@ public class JoinHandler extends ListenerAdapter {
 
 
          if(msg.contains("!pick") && rouletteON == true){
-
+//TODO: wanneer een persoon de voice chat joined of leaved wordt de else if aangeroepen of krijg ik een out of bounds error.
              for(int i = 0; i < size; i++){
                  if(msg.equals("!pick " + voiceChannel.getMembers().get(i).getUser().getName()) && event.getMember().getUser().getName().equals(member.getUser().getName())){
                      chosenMember = voiceChannel.getMembers().get(i).getUser().getName();
@@ -237,10 +237,10 @@ public class JoinHandler extends ListenerAdapter {
 
          if(msg.equals("!commands")){ // controleert of de message van de user "!commands" is
              //laat de commands zien
-             channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands\n!play *nameOfSong* - plays youtube songs\n!roulette - Kicks random user from Guild based on Russian Roulette\n!description *command* - shows the description of a given command").queue();
+             channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands\n!play *nameOfSong* - plays youtube songs\n!roulette - Kicks random user from Guild based on Russian Roulette\n!roulette2 - read desc\n!description *command* - shows the description of a given command").queue();
          }
 
-         if(msg.equals("!description roulette")){
+         if(msg.equals("!description roulette2")){
              channel.sendMessage("Russian roulette is a game where you have to guess who will be the doomer.\nThe doomer is randomly chosen from the voice channel and you have to guess who will be the doomer.\nIf you guess correctly, He/She will be kicked from the server.\nIf you guess wrong, you will be banned from the server and you will be the doomer.").queue();
          }
 
