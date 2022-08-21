@@ -24,6 +24,7 @@ public class JoinHandler extends ListenerAdapter {
          }
          String msg = event.getMessage().getContentRaw().toLowerCase(); //Zet de message String in een variabele
          TextChannel channel = event.getChannel().asTextChannel(); //Zet de text channel waarin de message event voorkomt in een variabele
+//         PrivateChannel channel1 = event.getChannel().asPrivateChannel(); //Zet de private channel waarin de message event voorkomt in een variabele
 
 
          if(msg.equals("!join")){ // controleert of de message van de user "!join" is
@@ -278,9 +279,39 @@ public class JoinHandler extends ListenerAdapter {
                  channel.sendMessage(author + ": " + replacedMsg).queue();
              }
          }
+            if(msg.contains("!request new curse:")){
+                System.out.println("testPT");
+                String newMsg = msg.replace("!request new curse:", "");
+                User user = event.getMember().getUser();
+                String content = "Your curse request for: " + newMsg + " has been sent to the owner of the server and will be checked accordingly.";
+                sendMessage(user, content);
+
+                User owner = event.getGuild().getOwner().getUser();
+                content = "A new curse request has been received.\nThe request is: " + newMsg + "\nThe requester is: " + user.getName() + "\nType: !approve to add to the list, else type: !decline";
+                sendMessage(owner, content);
+
+//TODO listener vinden voor het inlezen van berichten uit private channels/DM's
+//                PrivateChannel privateChannel = owner.openPrivateChannel().complete();
+//                privateChannel.getHistory().retrievePast(1).queue(messages -> {
+//                    Message message = messages.get(0);
+//                    System.out.println(message.getContentRaw());
+//                });
+
+            }
+            if(event.isFromType(ChannelType.PRIVATE)){
+                System.out.println("PRIVATE");
+            }
 
 
      }
+    // Send message without response handling
+    public void sendMessage(User user, String content) {
+        user.openPrivateChannel()
+                .flatMap(channel -> channel.sendMessage(content))
+                .queue();
+    }
+
+
 
 
 
