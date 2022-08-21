@@ -6,8 +6,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import java.util.Random;
 
 import java.net.URI;
@@ -16,6 +15,7 @@ import java.net.URISyntaxException;
 public class JoinHandler extends ListenerAdapter {
     int size; // instance variable voor !testroulette
     boolean rouletteON; // instance variable voor !testroulette
+    boolean profanityFilter; // instance variable voor !profanityfilter
      @Override
      public void onMessageReceived(MessageReceivedEvent event){
          //Controleert of de MessageEvent niet van een bot komt
@@ -243,6 +243,38 @@ public class JoinHandler extends ListenerAdapter {
          if(msg.equals("!description roulette2")){
              channel.sendMessage("Russian roulette is a game where you have to guess who will be the doomer.\nThe doomer is randomly chosen from the voice channel and you have to guess who will be the doomer.\nIf you guess correctly, He/She will be kicked from the server.\nIf you guess wrong, you will be banned from the server and you will be the doomer.").queue();
          }
+
+         if(msg.equals("!filter swearing on")){
+             channel.sendMessage("The swearing filter is on.\nIf you send a message that contains swearing, it will be filtered.").queue();
+             profanityFilter = true;
+         }
+         else if(msg.equals("!filter swearing off")){
+             channel.sendMessage("The swearing filter is off.\nIf you send a message that contains swearing, it will not be filtered.").queue();
+             profanityFilter = false;
+         }
+
+
+//TODO: probleem fixen: wanneer je meerdere verschillende swear words verstuurd in de chat worden alleen het eerst gedecteerde swear word gedetecteerd en gefiltered.
+         if(profanityFilter){
+             String replacedMsg = "";
+             String author = "";
+             boolean containsSwear = false;
+             try {
+                 Dictionary dictionary = new Dictionary();
+                 for(String words : dictionary.getSwearWords()){
+                     if(msg.contains(words)){
+                         containsSwear = true;
+                         replacedMsg = msg.replace(words, "BOBBA");
+                         author = event.getAuthor().getName();
+                         event.getMessage().delete().queue();
+                     }
+                 }
+             } catch (IOException e) {
+                 throw new RuntimeException(e);
+             }
+             if(containsSwear){channel.sendMessage(author + ": " + replacedMsg).queue();}
+         }
+
 
      }
 
