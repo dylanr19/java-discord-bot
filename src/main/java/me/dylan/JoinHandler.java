@@ -254,7 +254,7 @@ public class JoinHandler extends ListenerAdapter {
          }
 
 
-//TODO: probleem fixen: wanneer je meerdere verschillende swear words verstuurd in de chat worden alleen het eerst gedecteerde swear word gedetecteerd en gefiltered.
+//TODO: probleem fixen: wanneer ik daw en test beide in een chatbericht verstuurd wordt alleen daw gefilterd.
          if(profanityFilter){
              String replacedMsg = "";
              String author = "";
