@@ -254,7 +254,7 @@ public class JoinHandler extends ListenerAdapter {
          }
 
 
-//TODO: probleem fixen: wanneer ik daw en test beide in een chatbericht verstuurd wordt alleen daw gefilterd.
+
          if(profanityFilter){
              String replacedMsg = "";
              String author = "";
@@ -265,14 +265,18 @@ public class JoinHandler extends ListenerAdapter {
                      if(msg.contains(words)){
                          containsSwear = true;
                          replacedMsg = msg.replace(words, "BOBBA");
+                         msg = replacedMsg;
                          author = event.getAuthor().getName();
-                         event.getMessage().delete().queue();
+
                      }
                  }
              } catch (IOException e) {
                  throw new RuntimeException(e);
              }
-             if(containsSwear){channel.sendMessage(author + ": " + replacedMsg).queue();}
+             if(containsSwear){
+                 event.getMessage().delete().queue();
+                 channel.sendMessage(author + ": " + replacedMsg).queue();
+             }
          }
 
 
