@@ -18,6 +18,8 @@ public class MessageHandler extends ListenerAdapter {
     private boolean profanityFilter; // instance variable voor !profanityfilter
     private boolean whilecurserequest; // instance variable voor !whilecurserequest
     private User replyTo;
+    private String curse = "";
+    private boolean requestSession;
     private final String GuildOwner = "spite";
     TextChannel channel;
      @Override
@@ -290,6 +292,7 @@ public class MessageHandler extends ListenerAdapter {
              if(msg.contains("!request new curse:")){
                  System.out.println("testPT");
                  String newMsg = msg.replace("!request new curse:", "");
+                 curse = newMsg;
                  User user = event.getMember().getUser();
                  replyTo = user;
                  String content = "Your curse request for: " + newMsg + " has been sent to the owner of the server and will be checked accordingly.";
@@ -298,27 +301,30 @@ public class MessageHandler extends ListenerAdapter {
                  User owner = event.getGuild().getOwner().getUser();
                  content = "A new curse request has been received.\nThe request is: " + newMsg + "\nThe requester is: " + user.getName() + "\nType: !approve to add to the list, else type: !decline";
                  sendMessage(owner, content);
-
+                 requestSession = true;
              }
          }
          else if(event.getChannelType().equals(ChannelType.PRIVATE)){
 
              System.out.println("ChannelType: " + event.getChannelType());
 
-             if(msg.equals("!approve") && event.getAuthor().getName().equals(GuildOwner)){
-                 User user = replyTo;
+             if(msg.equals("!approve") && event.getAuthor().getName().equals(GuildOwner) && requestSession){
                  String content = "Your request has been approved.";
-                 sendMessage(user, content);
-
-                 //dostuff
+                 sendMessage(replyTo, content);
+                 try {
+                     writer w = new writer();
+                     w.WriteToFile(curse);
+                 } catch (IOException e) {
+                     throw new RuntimeException(e);
+                 }
+                 requestSession = false;
              }
              else if(msg.equals("!decline") && event.getAuthor().getName().equals(GuildOwner)){
                  User user = replyTo;
                  String content = "Your request has been declined.";
-                 //send a reason aswell
-                 sendMessage(user, content);
-
-                 //dostuff
+                 //TODO: reply to the user with a reason
+                 sendMessage(replyTo, content);
+                 requestSession = false;
              }
          }
 
