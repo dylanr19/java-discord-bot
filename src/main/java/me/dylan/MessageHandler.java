@@ -251,7 +251,7 @@ public class MessageHandler extends ListenerAdapter {
 
              if(msg.equals("!commands")){ // controleert of de message van de user "!commands" is
                  //laat de commands zien
-                 channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands\n!play *nameOfSong* - plays youtube songs\n!roulette - Kicks random user from Guild based on Russian Roulette\n!roulette2 - read desc\n!description *command* - shows the description of a given command\n!filter swearing on - read desc").queue();
+                 channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands\n!play *nameOfSong* - plays youtube songs\n!skip - skips the current song and instantly plays the next song that's Qeued next!\nroulette - Kicks random user from Guild based on Russian Roulette\n!roulette2 - currently not available\n!description *command* - shows the description of a given command\n!filter swearing on - read desc\n!filter swearing off\n!request new curse: *word* - read desc").queue();
              }
 
              if(msg.equals("!description roulette2")){
@@ -265,6 +265,10 @@ public class MessageHandler extends ListenerAdapter {
              else if(msg.equals("!filter swearing off")){
                  channel.sendMessage("The swearing filter is off.\nIf you send a message that contains swearing, it will not be filtered.").queue();
                  profanityFilter = false;
+             }
+             //!request new curse:
+             if(msg.equals("!description request new curse:")){
+                 channel.sendMessage("Is there an inappropriate word that is not being filtered through the bot? You can request this word to be filtered by the bot! Just type: !request new curse: *your curse word* \n After making a request you only have to wait for the owner's approval").queue();
              }
 
 
