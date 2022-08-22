@@ -68,6 +68,10 @@ public class PlayerManager {
                 }
             });
         }
+        public void SkipAndPlayNext(TextChannel textChannel){
+            final GuildMusicManager musicManager = this.getMusicManager(textChannel.getGuild());
+            musicManager.scheduler.SkipTrack();
+        }
 
         public static PlayerManager getINSTANCE(){
             if(INSTANCE == null){

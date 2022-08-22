@@ -88,6 +88,10 @@ public class MessageHandler extends ListenerAdapter {
                  PlayerManager.getINSTANCE().LoadAndPlay(channel, link); //zoekt de locatie van de song op en speelt deze af
              }
 
+             if(msg.contains("!skip")){
+                 PlayerManager.getINSTANCE().SkipAndPlayNext(channel); //Skipped de huidige song en speelt de eerstvolgende song uit de Qeue af.
+             }
+
 
              if(msg.equals("!roulette")){
                  rouletteON = false;
