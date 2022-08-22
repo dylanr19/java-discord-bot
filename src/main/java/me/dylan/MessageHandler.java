@@ -16,9 +16,9 @@ public class MessageHandler extends ListenerAdapter {
     private int size; // instance variable voor !testroulette
     private boolean rouletteON; // instance variable voor !testroulette
     private boolean profanityFilter; // instance variable voor !profanityfilter
-    private boolean whilecurserequest; // instance variable voor !whilecurserequest
     private User replyTo;
     private String curse = "";
+    private boolean declineSession;
     private boolean requestSession;
     private final String GuildOwner = "spite";
     TextChannel channel;
@@ -251,7 +251,7 @@ public class MessageHandler extends ListenerAdapter {
 
              if(msg.equals("!commands")){ // controleert of de message van de user "!commands" is
                  //laat de commands zien
-                 channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands\n!play *nameOfSong* - plays youtube songs\n!roulette - Kicks random user from Guild based on Russian Roulette\n!roulette2 - read desc\n!description *command* - shows the description of a given command").queue();
+                 channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands\n!play *nameOfSong* - plays youtube songs\n!roulette - Kicks random user from Guild based on Russian Roulette\n!roulette2 - read desc\n!description *command* - shows the description of a given command\n!filter swearing on - read desc").queue();
              }
 
              if(msg.equals("!description roulette2")){
@@ -329,6 +329,12 @@ public class MessageHandler extends ListenerAdapter {
                  //TODO: reply to the user with a reason
                  sendMessage(replyTo, content);
                  requestSession = false;
+                 declineSession = true;
+             }
+             if(msg.contains("!sendreason: ") && declineSession){
+                 String t = msg.replace("!sendreason: ", "");
+                 sendMessage(replyTo, t);
+                 declineSession = false;
              }
          }
 
