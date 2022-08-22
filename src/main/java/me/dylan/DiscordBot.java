@@ -1,15 +1,13 @@
 package me.dylan;
 
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+
 import javax.security.auth.login.LoginException;
 import java.util.EnumSet;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
@@ -30,7 +28,9 @@ public class DiscordBot {
                 // Enable access to message.getContentRaw()
                 GatewayIntent.MESSAGE_CONTENT,
                 //
-                GatewayIntent.GUILD_MEMBERS
+                GatewayIntent.GUILD_MEMBERS,
+                //
+                GatewayIntent.DIRECT_MESSAGES
         );
 
 
@@ -39,7 +39,7 @@ public class DiscordBot {
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .setActivity(Activity.playing("Type: !commands"))
-                .addEventListeners(new JoinHandler())
+                .addEventListeners(new MessageHandler())
                 .build();
 
 
