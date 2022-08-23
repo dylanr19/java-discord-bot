@@ -251,7 +251,7 @@ public class MessageHandler extends ListenerAdapter {
 
              if(msg.equals("!commands")){ // controleert of de message van de user "!commands" is
                  //laat de commands zien
-                 channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands\n!play *nameOfSong* - plays youtube songs\n!skip - skips the current song and instantly plays the next song that's Qeued next!\nroulette - Kicks random user from Guild based on Russian Roulette\n!roulette2 - currently not available\n!description *command* - shows the description of a given command\n!filter swearing on - read desc\n!filter swearing off\n!request new curse: *word* - read desc").queue();
+                 channel.sendMessage("!join - joins the voice channel\n!leave - leaves the voice channel\n!commands - shows the commands\n!play *nameOfSong* - plays youtube songs\n!skip - skips the current song and instantly plays the next song that's in the queu!\nroulette - Kicks random user from Guild based on Russian Roulette\n!roulette2 - currently not available\n!description *command* - shows the description of a given command\n!filter swearing on - read desc\n!filter swearing off\n!request new curse: *word* - read desc").queue();
              }
 
              if(msg.equals("!description roulette2")){
